@@ -3,12 +3,49 @@
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
 
-  {{> hello}}
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="Home">
+  <h1>Welcome to AnonTalk</h1>
+  <h2>comment and talk - no one has to know</h2>
+  <p>Let's get started!</p>
+  <a href="/makeThread" class="btn btn-default">Make a thread</a>
+  <a href="/viewAll" class="btn btn-default">View All Threads</a>
 </template>
+<template name="makeThread">
+	<h1>Let's start a discussion</h1>
+	<h2>What would you like your new thread to be called?</h2>
+	<input id="threadSubmit" type="text" name="thread" placeholder="Thread Name"/>
+	<textarea id="description" placeholder="Write your discussion topic here!"></textarea>
+	<button id="threadMakeSubmit" class="btn btn-default">Submit</button>
+	<p id="name-message" class="error">There is already a thread with that name!</p>
+</template>
+
+<template name="viewAll"> 
+	{{#each threads}}
+	{{> thread}}
+	{{/each}}
+</template>
+
+<template name="thread">
+	<div class="container">
+		<div class="row">
+			<a href="{{makeUrl}}">
+				<div class="col-xs-12">
+					<h1>{{name}}</h1>
+					<h2>{{description}}</h2>
+				</div>
+			</a>
+		</div>
+	</div>
+</template>
+<template name="notFound">
+	<div class="center">
+	
+	<h1>Hmmm... seems like that thread doesn't exist</h1>
+	<a href="/makeThread" class="btn btn-default">Make the thread</a>
+	<a href="/viewAll" class="btn btn-default">View all threads</a>
+	</div>
+</template>
+

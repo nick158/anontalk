@@ -1,0 +1,24 @@
+<template name="threadPage">
+	<header>
+		{{> yield "header"}}
+	</header>
+	<section>
+		{{> yield}}
+	</section>
+</template>
+<template name="threadHeader">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<h1>{{name}}</h1>
+				<h3>{{description}}</h3>
+			</div>
+		</div>
+	</div>
+</template>
+<template name="discussion">
+	<textarea id="new-comment" placeholder="What do you want to say?"></textarea>
+</template>
+<template name="comment">
+
+</template>
