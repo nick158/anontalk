@@ -22,7 +22,6 @@ if (Meteor.isClient) {
   		}
       
   		else{
-        console.log("nope");
   			$("#name-message").css("display","inline");
         setTimeout(function(){
           $("#name-message").css("display", "none");
@@ -38,3 +37,24 @@ if (Meteor.isClient) {
 	})
 
 }
+//route was placed in here due to issues with Thread Collection
+Router.route("/threads/:threadName", function(){
+	var threadName = this.params.threadName;
+	if(!Thread.findOne({name:threadName})){
+		Router.go("/notFound");
+	}
+	this.layout("threadPage");
+	//render header in the thread page layout
+	this.render("threadHeader", {
+		data: function () {
+			return Thread.findOne({name: threadName});
+		},
+		to: "header"
+	});
+	
+	this.render("discussion", {
+		data: function () {
+			return Thread.findOne({name: threadName});
+		}
+	});
+});

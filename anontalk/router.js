@@ -4,24 +4,4 @@ Router.route('/', function () {
 });
 Router.route("makeThread");
 Router.route("viewAll");
-Router.route("/threads/:threadName", function(){
-	var threadName = this.params.threadName;
-	if(!Thread.findOne({name:threadName})){
-		Router.go("/notFound");
-	}
-	this.layout("threadPage");
-	//render header in the thread page layout
-	this.render("threadHeader", {
-		data: function () {
-			return Thread.findOne({name: threadName});
-		},
-		to: "header"
-	});
-	
-	this.render("discussion", {
-		data: function () {
-			return Thread.findOne({name: threadName});
-		}
-	});
-});
 Router.route("notFound");
