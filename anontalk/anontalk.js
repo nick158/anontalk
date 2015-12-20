@@ -1,4 +1,4 @@
-var Thread = new Mongo.Collection("threads");
+Thread = new Mongo.Collection("threads");
 //make a validate function
 if (Meteor.isClient) {
   //make thread template for anonymous creating of events
@@ -13,20 +13,21 @@ if (Meteor.isClient) {
   		e.preventDefault();
   		var threadName = document.getElementById("threadSubmit").value.trim();
 		var description = document.getElementById("description").value;
-  		var exist = Thread.findOne({name: threadName});
-  		if(!exist){
-        console.log(exist);
-        console.log("test");
-  			Thread.insert({name:threadName, description:description, createdAt: new Date(), views: 0,comments:[]});
-        Router.go("/threads/"+threadName);
-  		}
-      
-  		else{
-  			$("#name-message").css("display","inline");
-        setTimeout(function(){
-          $("#name-message").css("display", "none");
-        },3000);
-  		}
+		Meteor.call("addThread", threadName, description,function(err, data){
+			console.log(err);
+			console.log(data);
+			if(data){
+				Route.go("/threads/" + threadName);
+			}
+			else{
+				$("#name-message").css("display","inline");
+				setTimeout(function(){
+			  $("#name-message").css("display", "none");
+			},3000);
+			}
+			
+		});
+
   	}
   });
 	
